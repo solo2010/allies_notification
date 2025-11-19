@@ -1,0 +1,25 @@
+{% extends "partner_groups/master.html" %}
+
+{% block title %}
+    Grupos Aliados
+{% endblock  %}
+
+{% block content %}
+    <h1>Grupos Aliados</h1>
+    <div style="margin-bottom: 1em;"><a href="{% url 'partner_groups:create' %}">Crear Grupo Aliado</a></div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Grupo Aliado</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+        {% for partner_group in partner_groups %}
+        <tr>
+            <td>{{ partner_group.id }}</td>
+            <td>{{ partner_group.name }}</td>
+            <td><a href="edit/{{ partner_group.id }}">Editar</a></td>
+            <td><a href="delete/{{ partner_group.id }}">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock  %}

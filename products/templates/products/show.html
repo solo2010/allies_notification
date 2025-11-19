@@ -1,0 +1,25 @@
+{% extends "products/master.html" %}
+
+{% block title %}
+    Productos
+{% endblock  %}
+
+{% block content %}
+    <h1>Productos</h1>
+    <div style="margin-bottom: 1em;"><a href="{% url 'products:create' %}">Crear Producto</a></div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td><a href="edit/{{ product.id }}">Editar</a></td>
+            <td><a href="delete/{{ product.id }}">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock  %}

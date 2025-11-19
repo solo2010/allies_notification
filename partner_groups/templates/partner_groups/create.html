@@ -1,0 +1,13 @@
+{% extends "partner_groups/master.html" %}
+
+{% block title %}
+    Crear Grupo Aliado
+{% endblock  %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Crear">
+    </form>
+{% endblock  %}
