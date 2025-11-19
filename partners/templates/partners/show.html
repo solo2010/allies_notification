@@ -1,0 +1,31 @@
+{% extends "partners/master.html" %}
+
+{% block title %}
+    Aliados
+{% endblock  %}
+
+{% block content %}
+    <h1>Aliados</h1>
+    <div style="margin-bottom: 1em;"><a href="#">Agregar Aliado</a></div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre Completo</th>
+            <th>Email</th>
+            <th>Celular</th>
+            <th>Grupo Aliado</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+        {% for partner in partners  %}
+            <tr>
+                <td>{{ partner.id }}</td>
+                <td>{{ partner.full_name }}</td>
+                <td>{{ partner.email }}</td>
+                <td>{{ partner.cellphone }}</td>
+                <td>{{ partner.partner_group }}</td>
+                <td><a href="#">Editar</a></td>
+                <td><a href="#">Eliminar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock  %}
