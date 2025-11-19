@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1>Aliados</h1>
-    <div style="margin-bottom: 1em;"><a href="#">Agregar Aliado</a></div>
+    <div style="margin-bottom: 1em;"><a href="{% url 'partners:create' %}">Agregar Aliado</a></div>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -22,7 +22,7 @@
                 <td>{{ partner.full_name }}</td>
                 <td>{{ partner.email }}</td>
                 <td>{{ partner.cellphone }}</td>
-                <td>{{ partner.partner_group }}</td>
+                <td>{{ partner.partner_group.name }}</td>
                 <td><a href="#">Editar</a></td>
                 <td><a href="#">Eliminar</a></td>
             </tr>

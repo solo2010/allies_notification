@@ -1,0 +1,27 @@
+{% extends "partners/master.html" %}
+
+{% block title %}Crear Aliado{% endblock  %}
+
+{% block content %}
+    <h1>Crear Aliado</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+             {{ form.full_name.label_tag }}
+             {{ form.full_name }}
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+             {{ form.email.label_tag }}
+             {{ form.email }}
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+             {{ form.cellphone.label_tag }}
+             {{ form.cellphone }}
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+             {{ form.partner_group.label_tag }}
+             {{ form.partner_group }}
+        </div>
+        <input type="submit" value="Crear">
+    </form>
+{% endblock  %}
