@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Estados</h1>
-    <div style="margin-bottom: 1em;"><a href="#">Crear Estado</a></div>
+    <div style="margin-bottom: 1em;"><a href="{% url 'statuses:create' %}">Crear Estado</a></div>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -14,9 +14,9 @@
         {% for status in statuses %}
         <tr>
             <td>{{ status.id }}</td>
-            <td>{{ status.name }}</td>
-            <td><a href="#">Editar</a></td>
-            <td><a href="#">Eliminar</a></td>
+            <td>{{ status.status }}</td>
+            <td><a href="edit/{{ status.id }}">Editar</a></td>
+            <td><a href="delete/{{ status.id }}">Eliminar</a></td>
         </tr>
         {% endfor %}
     </table>

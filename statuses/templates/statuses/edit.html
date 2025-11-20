@@ -1,0 +1,12 @@
+{% extends "statuses/master.html" %}
+
+{% block title %} Editar {{ form.status.value }}{% endblock  %}
+
+{% block content %}
+    <h1>Editar {{ form.status.value }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Actualizar">
+    </form>
+{% endblock %}
