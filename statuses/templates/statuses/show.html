@@ -1,0 +1,23 @@
+{% extends "statuses/master.html" %}
+
+{% block title %}Estados{% endblock  %}
+
+{% block content %}
+    <h1>Estados</h1>
+    <div style="margin-bottom: 1em;"><a href="#">Crear Estado</a></div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Estado</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+        {% for status in statuses %}
+        <tr>
+            <td>{{ status.id }}</td>
+            <td>{{ status.name }}</td>
+            <td><a href="#">Editar</a></td>
+            <td><a href="#">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock  %}

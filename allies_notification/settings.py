@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'products',
     'partner_groups',
     'partners',
+    'statuses',
 ]
 
 MIDDLEWARE = [
