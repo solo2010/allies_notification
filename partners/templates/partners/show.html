@@ -5,7 +5,7 @@
 {% endblock  %}
 
 {% block content %}
-    <h1>Aliados</h1>
+    <h1>ALIADOS{% if group %} {{ group }} {% endif %}</h1>
     <div style="margin-bottom: 1em;"><a href="{% url 'partners:create' %}">Agregar Aliado</a></div>
     <table border="1">
         <tr>
@@ -13,7 +13,9 @@
             <th>Nombre Completo</th>
             <th>Email</th>
             <th>Celular</th>
+            {% if not group %}
             <th>Grupo Aliado</th>
+            {% endif %}
             <th colspan="2">Acciones</th>
         </tr>
         {% for partner in partners  %}
@@ -22,7 +24,9 @@
                 <td>{{ partner.full_name }}</td>
                 <td>{{ partner.email }}</td>
                 <td>{{ partner.cellphone }}</td>
+                {% if not group %}
                 <td>{{ partner.partner_group.name }}</td>
+                {% endif %}
                 <td><a href="edit/{{ partner.id }}">Editar</a></td>
                 <td><a href="delete/{{ partner.id }}">Eliminar</a></td>
             </tr>
