@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .models import PartnerGroup
+from .models import PartnerGroup, PartnerGroupProduct
+from products.models import Product
 from .forms import PartnerGroupForm
 
 def show(request):
@@ -18,7 +19,9 @@ def create(request):
         form = PartnerGroupForm(request.POST)
         if form.is_valid():
             name = request.POST.get("name")
-            PartnerGroup.objects.create(name=name)
+            product = Product.objects.get(id=request.POST.get("product"))
+            partnergroup = PartnerGroup.objects.create(name=name)
+            PartnerGroupProduct.objects.create(product=product, partnergroup=partnergroup)
             return redirect("partner_groups:show")
     else:
         form = PartnerGroupForm()
