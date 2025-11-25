@@ -5,9 +5,17 @@
 {% endblock  %}
 
 {% block content %}
+    <h1>Crear Grupo Aliado</h1>
     <form method="POST">
         {% csrf_token %}
-        {{ form }}
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+             {{ form.name.label_tag }}
+             {{ form.name }}
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+             {{ form.product.label_tag }}
+             {{ form.product }}
+        </div>
         <input type="submit" value="Crear">
     </form>
 {% endblock  %}
