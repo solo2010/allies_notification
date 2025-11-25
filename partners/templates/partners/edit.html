@@ -3,7 +3,7 @@
 {% block title %}Editar {{ form.full_name.value }}{% endblock  %}
 
 {% block content %}
-    <h1>Editar {{ form.full_name.value }}</h1>
+    <h1>Editar {{ form.full_name.value }} {{ form.group_id }}</h1>
     <form method="POST">
         {% csrf_token %}
         <div style="display: flex; flex-direction: column; margin-bottom: 12px;">

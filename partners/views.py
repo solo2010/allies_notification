@@ -9,19 +9,22 @@ def show(request, group_id=None):
     #Si se llama el show() desde el enlace de "Ver aliados" en el template de partner_groups este enviará un id para que muestre solo los aliados de ese grupo
     if group_id: 
         partners = Partner.objects.filter(partner_group_id=group_id)
-        group = partners[0].partner_group #Se llama el grupo del primer elemento ya que todos tiene el mismo grupo
+        filter_group = PartnerGroup.objects.filter(id=group_id).first() #Se llama el nombre del grupo del primer elemento.
+        group = filter_group.name
     else:
         partners =Partner.objects.all()
         group = None
-
+        
     template = loader.get_template('partners/show.html')
     context = {
         'partners': partners,
         'group': group,
+        'group_id': group_id,
     }
     return HttpResponse(template.render(context))
 
-def create(request):
+def create(request, group_id=None):
+    print(group_id)
     if request.method == "POST":
         form = PartnerForm(request.POST)
         if form.is_valid():
@@ -31,18 +34,26 @@ def create(request):
                 cellphone = form.cleaned_data['cellphone'],
                 partner_group = form.cleaned_data['partner_group']
             )
-            return redirect("partners:show")
+            if group_id:
+                return redirect("partners:show_for_group", group_id=group_id)
+            else:
+                return redirect("partners:show")
     else:
-        form = PartnerForm()
-    return render(request, "partners/create.html", {"form": form})
+        if group_id:
+            form = PartnerForm(initial={'partner_group': group_id})
+        else:
+            form = PartnerForm()
+    return render(request, "partners/create.html", {"form": form, "group_id": group_id})
 
-def delete(request, id):
-    print("llego acá")
+def delete(request, id, group_id=None):
     partner = Partner.objects.get(id=id)
     partner.delete()
-    return redirect("partners:show")
+    if group_id:
+        return redirect("partners:show_for_group", group_id=group_id)
+    else:
+        return redirect("partners:show")
 
-def edit(request, id):
+def edit(request, id, group_id=None):
     partner = Partner.objects.get(id=id)
     if request.method == "POST":
         form = PartnerForm(request.POST)
@@ -52,13 +63,16 @@ def edit(request, id):
             partner.cellphone = form.cleaned_data['cellphone']
             partner.partner_group = form.cleaned_data['partner_group']
             partner.save()
-            return redirect("partners:show")
+            if group_id:
+                return redirect("partners:show_for_group", group_id=group_id)
+            else:
+                return redirect("partners:show")
     else:
         form = PartnerForm(initial={
             'full_name': partner.full_name,
             'email': partner.email,
             'cellphone': partner.cellphone,
-            'partner_group': partner.partner_group
+            'partner_group': partner.partner_group,
         })
 
     return render(request, "partners/edit.html", {"form": form})

@@ -19,8 +19,12 @@
              {{ form.cellphone }}
         </div>
         <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
-             {{ form.partner_group.label_tag }}
-             {{ form.partner_group }}
+               {% if group_id %}
+                    {{ form.partner_group.as_hidden }}
+               {% else %}
+                    {{ form.partner_group.label_tag }}
+                    {{ form.partner_group }}
+               {% endif %}
         </div>
         <input type="submit" value="Crear">
     </form>

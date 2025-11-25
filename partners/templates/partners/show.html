@@ -6,7 +6,11 @@
 
 {% block content %}
     <h1>ALIADOS{% if group %} {{ group }} {% endif %}</h1>
-    <div style="margin-bottom: 1em;"><a href="{% url 'partners:create' %}">Agregar Aliado</a></div>
+    {% if group_id %}
+        <div style="margin-bottom: 1em;"><a href="{% url 'partners:create_for_group' group_id=group_id %}">Agregar Aliado</a></div>
+    {% else %}
+        <div style="margin-bottom: 1em;"><a href="{% url 'partners:create' %}">Agregar Aliado</a></div>
+    {% endif %}
     <table border="1">
         <tr>
             <th>ID</th>
@@ -27,8 +31,13 @@
                 {% if not group %}
                 <td>{{ partner.partner_group.name }}</td>
                 {% endif %}
-                <td><a href="edit/{{ partner.id }}">Editar</a></td>
-                <td><a href="delete/{{ partner.id }}">Eliminar</a></td>
+                {% if group_id %}
+                    <td><a href="{% url 'partners:edit_for_group' id=partner.id group_id=group_id%}">Editar</a></td>
+                    <td><a href="{% url 'partners:delete_for_group' id=partner.id group_id=group_id %}">Eliminar</a></td>
+                {% else %}
+                    <td><a href="{% url 'partners:edit' id=partner.id %}">Editar</a></td>
+                    <td><a href="{% url 'partners:delete' id=partner.id %}">Eliminar</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
