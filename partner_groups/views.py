@@ -6,7 +6,7 @@ from products.models import Product
 from .forms import PartnerGroupForm
 
 def show(request):
-    partner_groups = PartnerGroup.objects.all().values()
+    partner_groups = PartnerGroup.objects.prefetch_related("products")
     template = loader.get_template('partner_groups/show.html')
     context = {
         'partner_groups': partner_groups
@@ -14,19 +14,29 @@ def show(request):
     return HttpResponse(template.render(context))
 
 def create(request):
-    
+    products = Product.objects.all()
     if request.method == "POST":
         form = PartnerGroupForm(request.POST)
+        selected_products = request.POST.getlist("products[]")
         if form.is_valid():
             name = request.POST.get("name")
-            product = Product.objects.get(id=request.POST.get("product"))
             partnergroup = PartnerGroup.objects.create(name=name)
-            PartnerGroupProduct.objects.create(product=product, partnergroup=partnergroup)
+            for product_id in selected_products:
+                product = Product.objects.get(id=product_id)
+                PartnerGroupProduct.objects.create(
+                    partnergroup = partnergroup,
+                    product = product
+                )
+            # product = Product.objects.get(id=request.POST.get("product"))
+            # PartnerGroupProduct.objects.create(product=product, partnergroup=partnergroup)
             return redirect("partner_groups:show")
     else:
         form = PartnerGroupForm()
         
-    return render(request, "partner_groups/create.html", {"form": form})
+    return render(request, "partner_groups/create.html", {
+        "form": form,
+        "products": products
+    })
 
 def delete(request,id):
     partner_group = PartnerGroup.objects.get(id=id)

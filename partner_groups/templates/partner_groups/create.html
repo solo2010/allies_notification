@@ -1,21 +1,28 @@
 {% extends "partner_groups/master.html" %}
-
+{% load static %}
 {% block title %}
     Crear Grupo Aliado
 {% endblock  %}
 
 {% block content %}
     <h1>Crear Grupo Aliado</h1>
+    <!-- Plantilla la cual debe ir oculta--> 
+    <div style="display: flex; flex-direction: column; margin-bottom: 12px; width: auto; max-width: 300px; display:none" class="template-select-product">
+        {% include "partner_groups/partials/select_libro.html" %}
+    </div>
     <form method="POST">
         {% csrf_token %}
-        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px; width: auto; max-width: 300px">
              {{ form.name.label_tag }}
              {{ form.name }}
         </div>
-        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
-             {{ form.product.label_tag }}
-             {{ form.product }}
+        <h3>Productos que consume</h3>
+        <!-- Contenedor donde aparecen los selects dinamicos--> 
+        <div id="products-container">
         </div>
+        <button type="button" id="btn-add">Agregar Producto</button>
+        <br><br>
         <input type="submit" value="Crear">
     </form>
+    <script src="{% static 'partner_groups/js/add_products.js' %}"></script>
 {% endblock  %}

@@ -11,12 +11,18 @@
         <tr>
             <th>ID</th>
             <th>Grupo Aliado</th>
+            <th>Productos</th>
             <th colspan="3">Acciones</th>
         </tr>
         {% for partner_group in partner_groups %}
         <tr>
             <td>{{ partner_group.id }}</td>
             <td>{{ partner_group.name }}</td>
+            <td>
+                {% for product in partner_group.products.all %}
+                    {{ product.name}} <br>
+                {% endfor %}
+            </td>
             <td><a href="{% url 'partners:show_for_group' group_id=partner_group.id %}">Ver aliados</a>
             <td><a href="edit/{{ partner_group.id }}">Editar</a></td>
             <td><a href="delete/{{ partner_group.id }}">Eliminar</a></td>
