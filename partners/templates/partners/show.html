@@ -5,7 +5,7 @@
 {% endblock  %}
 
 {% block content %}
-    <h1>ALIADOS{% if group %} {{ group }} {% endif %}</h1>
+    <h1>Aliados{% if group %} {{ group }} {% endif %}</h1>
     {% if group_id %}
         <div style="margin-bottom: 1em;"><a href="{% url 'partners:create_for_group' group_id=group_id %}">Agregar Aliado</a></div>
     {% else %}
