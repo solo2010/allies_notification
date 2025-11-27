@@ -39,7 +39,9 @@ def edit(request, id):
             return redirect("statuses:show")
     else:
         form = StatusForm(initial={
-            'status': status.status
+            'status': status.status,
+            'head': status.head,
+            'body': status.body,
         })
 
     return render(request, "statuses/edit.html", {"form": form})
