@@ -1,11 +1,39 @@
 {% extends "partner_groups/master.html" %}
-
+{% load static %}
 {% block title %}Editar {{ form.name.value }}{% endblock %}
 
 {% block content %}
+    <h1>Editar {{ form.name.value }}</h1>
+    <!-- Plantilla la cual debe ir oculta--> 
+    <div style="display: flex; flex-direction: column; margin-bottom: 12px; width: auto; max-width: 300px; display:none" class="template-select-product">
+        {% include "partner_groups/partials/select_libro.html" %}
+    </div>
     <form method="POST">
         {% csrf_token %}
-        {{ form }}
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px; width: auto; max-width: 300px">
+             {{ form.name.label_tag }}
+             {{ form.name }}
+        </div>
+        <h3>Productos que consume</h3>
+        <!-- Contenedor donde aparecen los selects dinamicos--> 
+        <div id="products-container">
+            {% for product in partner_group.products.all %}
+            <div class="product-item" static="width: auto; max-width: 200px">
+                <select name="products[]" class="select-product">
+                    <option value="">Seleccione un producto</option>
+                    {% for p in products %}
+                        <option value="{{ p.id }}" {% if p.id == product.id %}selected{% endif %}>
+                            {{ p.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="button" class="btn-remove">X</button>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="button" id="btn-add">Agregar Producto</button>
+        <br><br>
         <input type=submit value="Actualizar">
     </form>
+    <script src="{% static 'partner_groups/js/add_products.js' %}"></script>
 {% endblock  %}

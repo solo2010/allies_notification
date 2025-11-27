@@ -27,8 +27,6 @@ def create(request):
                     partnergroup = partnergroup,
                     product = product
                 )
-            # product = Product.objects.get(id=request.POST.get("product"))
-            # PartnerGroupProduct.objects.create(product=product, partnergroup=partnergroup)
             return redirect("partner_groups:show")
     else:
         form = PartnerGroupForm()
@@ -44,19 +42,34 @@ def delete(request,id):
     return redirect("partner_groups:show")
 
 def edit(request,id):
-    partner_group = PartnerGroup.objects.get(id=id)
+    partner_group = PartnerGroup.objects.prefetch_related("products").get(id=id)
+    products = Product.objects.all()
     if request.method == "POST":
         form = PartnerGroupForm(request.POST)
+        selected_products = request.POST.getlist("products[]")
         if form.is_valid():
             partner_group.name = request.POST['name']
             partner_group.save()
+            PartnerGroupProduct.objects.filter(partnergroup=partner_group).delete()
+            for p in selected_products:       
+                if p:
+                    product = Product.objects.get(id=p)
+                    PartnerGroupProduct.objects.create(
+                        partnergroup = partner_group,
+                        product = product
+                    )
+
             return redirect("partner_groups:show")
     else:
         form = PartnerGroupForm(initial={
             'name': partner_group.name
         })
     
-    return render(request, "partner_groups/edit.html", {"form": form})
+    return render(request, "partner_groups/edit.html", {
+        "form": form,
+        "partner_group": partner_group,
+        'products': products,
+    })
 
 
 

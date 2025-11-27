@@ -12,7 +12,6 @@ $(document).ready(function() {
 
     //Creamos la función que actualizará la lista del select según los productos ya escogidos (Esto para que cada vez que escoja un producto desaparezca de la lista y no repetir)
     function updateOptions() {
-
         let selects = $(".select-product").map(function () {
             return $(this).val();
         }).get();
