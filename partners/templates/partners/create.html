@@ -13,6 +13,9 @@
         <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
              {{ form.email.label_tag }}
              {{ form.email }}
+             {% if form.email.errors %}
+               <span style="color:red;">{{ form.email.errors }}</span>  
+             {% endif %}
         </div>
         <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
              {{ form.cellphone.label_tag }}
