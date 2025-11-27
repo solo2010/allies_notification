@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'partner_groups',
     'partners',
     'statuses',
+    'mails',
 ]
 
 MIDDLEWARE = [
