@@ -1,8 +1,10 @@
 $(document).ready(function(){
     $('#product, #status').change(function(){
-        var product = $('#product').val();
-        var status = $('#status').val();
-        if(status == 4) { //Status 4 es en mantenimiento
+        let product = $('#product').val();
+        let status = $('#status').val();
+        let status_name = $('#status option:selected').text();
+        
+        if(status_name == "En Mantenimiento") { //Status 4 es en mantenimiento
             $('#date_maintenance').css("display", "flex");
         }
         else {
@@ -28,14 +30,16 @@ $(document).ready(function(){
         }
     });
     $('#start_date').on("change", function(){
+        let old_content = $('#content').val(); 
         let star_date = $(this).val();
-        let content = data.content.replace(/Fecha inicio: .*/, "Fecha inicio: " + star_date);
+        let content = old_content.replace(/Fecha inicio:.*/, "Fecha inicio: " + star_date);
         $('#content').val(content);
     });
 
     $('#end_date').on("change", function(){
+        let old_content = $('#content').val();
         let end_date = $(this).val();
-        let content = $('#content').replace(/Fecha fin: .*/, "Fecha fin: " + end_date);
+        let content = old_content.replace(/Fecha fin:.*/, "Fecha fin: " + end_date);
         $('#content').val(content);
 
     })
