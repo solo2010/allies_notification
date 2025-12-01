@@ -12,7 +12,7 @@ def create(request):
     if request.method == "POST":
         form = MailForm(request.POST)
         if form.is_valid():
-            print("ahora lidiamos con esto")
+            return HttpResponse("Ahora si alidiar con esto: " + str(request.POST.get("content")))
     else:
         form = MailForm()
     

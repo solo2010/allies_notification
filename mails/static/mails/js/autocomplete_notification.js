@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    let tagify = new Tagify(document.querySelector("#recipients"), {tagTextProp: "name"});
     $('#product, #status').change(function(){
         let product = $('#product').val();
         let status = $('#status').val();
@@ -24,6 +25,14 @@ $(document).ready(function(){
                         $('#subject').val(subject);
                         let content = data.content.replace("###", data.product); //Reemplazamos los ### del contenido por el nombre del producto
                         $('#content').val(content);
+                        tagify.removeAllTags();
+                        let tags = data.to.map(function(item){
+                            return {
+                                value: item.id,
+                                name: item.name
+                            }
+                        });
+                        tagify.addTags(tags);
                     }
                 }
             })
