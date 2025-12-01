@@ -16,8 +16,11 @@ def create(request):
     if request.method == "POST":
         form = StatusForm(request.POST)
         if form.is_valid():
-            status = request.POST.get("status")
-            Status.objects.create(status=status)
+            Status.objects.create(
+                status=form.cleaned_data['status'],
+                head=form.cleaned_data['head'],
+                body=form.cleaned_data['body'],
+            )
             return redirect("statuses:show")
     else:
         form = StatusForm()
@@ -35,6 +38,8 @@ def edit(request, id):
         form = StatusForm(request.POST)
         if form.is_valid():
             status.status = request.POST['status']
+            status.head = request.POST['head']
+            status.body = request.POST['body']
             status.save()
             return redirect("statuses:show")
     else:

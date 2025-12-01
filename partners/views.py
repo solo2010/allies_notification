@@ -24,7 +24,6 @@ def show(request, group_id=None):
     return HttpResponse(template.render(context))
 
 def create(request, group_id=None):
-    print(group_id)
     if request.method == "POST":
         form = PartnerForm(request.POST)
         if form.is_valid():

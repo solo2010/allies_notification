@@ -1,0 +1,42 @@
+{% extends "mails/master.html" %}
+{% load static %}
+{% block title %}Nueva Notificacion{% endblock %}
+
+{% block content %}
+    <h1>Nueva notificación</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+            {{ form.product.label_tag }}
+            {{ form.product }}
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+            {{ form.status.label_tag }}
+            {{ form.status }}
+        </div>
+        <div style="display: none; flex-direction: column; margin-bottom: 12px;" id="date_maintenance">
+            <div style="flex: 1; flex-direction: column; margin-bottom: 12px;">
+                <label for="start_date">Fecha inicio:</label>
+                <input type="datetime-local" id="start_date">
+            </div>
+            <div style="flex:1; flex-direction: column; margin-bottom: 12px;">
+                <label for="end_date">Fecha Final:</label>
+                <input type="datetime-local" id="end_date">
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+            {{ form.recipients.label_tag }}
+            {{ form.recipients }}
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+            {{ form.subject.label_tag }}
+            {{ form.subject }}
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 12px;">
+            {{ form.content.label_tag }}
+            {{ form.content }}
+        </div>
+        <input type="submit" value="Enviar Notificacion">
+    </form>
+    <script src="{% static 'mails/js/autocomplete_notification.js' %}"></script>
+{% endblock  %}
