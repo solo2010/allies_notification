@@ -7,6 +7,9 @@ class Partner(models.Model):
     email = models.EmailField(unique=True)
     cellphone = models.CharField(max_length=25)
 
+    class Meta:
+        db_table = "partners"
+
 
 
 

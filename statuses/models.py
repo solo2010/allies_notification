@@ -7,3 +7,6 @@ class Status(models.Model):
 
     def __str__(self):
         return self.status
+    
+    class Meta:
+        db_table = "statuses"

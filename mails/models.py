@@ -10,3 +10,16 @@ class Mail(models.Model):
     content = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True, null=True)
     update_date = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = "mails"
+
+class DeliveryStatus(models.Model):
+    mail = models.ForeignKey(Mail, on_delete=models.SET_NULL, null=True, related_name='deliveries_status')
+    partner_email = models.EmailField(null=True)
+    status = models.CharField(max_length=300)
+    code = models.CharField(max_length=300)
+    message = models.CharField(max_length=5000)
+
+    class Meta:
+        db_table = "deliveries_status"
